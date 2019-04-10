@@ -860,7 +860,8 @@ def get_python_library_path():
     """
     # Try to get Python library name from the Python executable. It assumes that Python
     # library is not statically linked.
-    dlls = getImports(sys.executable)
+    from pathlib import Path
+    dlls = getImports(str(Path(sys.base_exec_prefix) / Path(sys.executable).name))
     for filename in dlls:
         for name in PYDYLIB_NAMES:
             if os.path.basename(filename) == name:
